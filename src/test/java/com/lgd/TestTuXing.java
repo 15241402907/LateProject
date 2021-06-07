@@ -41,6 +41,9 @@ public class TestTuXing {
         }
 
 
+        String a = null;
+
+
     }
 
 }

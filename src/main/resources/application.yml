@@ -1,0 +1,24 @@
+server:
+  port: 1111
+  servlet:
+    context-path: /yx
+    jsp:
+      init-parameters:
+        development: true
+spring:
+  mvc:
+    view:
+      suffix: .jsp
+      prefix: /
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yingx
+    username: root
+    password: root
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+mybatis:
+  type-aliases-package: com.lgd.entity
+  mapper-locations: classpath:com/lgd/mapper/*.xml

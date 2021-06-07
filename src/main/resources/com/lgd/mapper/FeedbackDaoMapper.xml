@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgd.dao.FeedbackDao">
+
+    <select id="queryAll"  resultType="Feedback">
+        select id, title, content,feed_time feedTime from yx_feedback
+    </select>
+
+
+    <select id="queryByPage"  resultType="Feedback">
+        select id, title, content,feed_time feedTime from yx_feedback limit #{begin} , #{end}
+    </select>
+
+
+    <select id="count" resultType="Integer">
+        select count(id) from yx_feedback
+    </select>
+
+</mapper>

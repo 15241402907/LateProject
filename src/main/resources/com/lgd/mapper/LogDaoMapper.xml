@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgd.dao.LogDao">
+
+    <select id="selectAll" resultType="Log">
+        select id, username,option_time optionTime, method,status from yx_log limit #{begin},#{end}
+    </select>
+
+    <select id="count" resultType="Integer">
+        select count(id) from yx_log
+    </select>
+
+    <insert id="insert" parameterType="Log">
+        insert into yx_log values(#{id},#{username},#{optionTime},#{method},#{status})
+    </insert>
+
+
+</mapper>

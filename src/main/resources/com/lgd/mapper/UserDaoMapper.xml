@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgd.dao.UserDao">
+
+
+
+    <select id="queryByPage"  resultType="User">
+        select id, phone, head_img headImg,username, sign, wechat, status,regist_time registTime  from yx_user limit #{begin}, #{end}
+    </select>
+
+
+    <select id="selectOne"  resultType="User">
+        select id, phone, head_img headImg,username, sign, wechat, status,regist_time registTime  from yx_user where id =#{id}
+    </select>
+
+
+    <select id="count" resultType="Integer">
+        select count(id) from yx_user
+    </select>
+
+
+    <insert id="insert" parameterType="User">
+        insert into yx_user values(#{id},#{phone},#{headImg},#{username},#{sign},#{wechat},#{status},#{registTime})
+    </insert>
+
+
+    <insert id="delete" parameterType="String">
+        delete from yx_user where id =#{id}
+    </insert>
+
+
+    <insert id="update" parameterType="User">
+        update yx_user
+        <set>
+            <if test="phone!=null and phone!=''">phone=#{phone},</if>
+            <if test="headImg!=null and headImg!=''">head_img=#{headImg},</if>
+            <if test="username!=null and username!=''">username=#{username},</if>
+            <if test="sign!=null and sign!=''">sign=#{sign},</if>
+            <if test="wechat!=null and wechat!=''">wechat=#{wechat},</if>
+            <if test="status!=null and status!=''">status=#{status},</if>
+            <if test="registTime!=null">regist_time=#{registTime}</if>
+        </set>
+        where id = #{id}
+    </insert>
+
+
+
+
+
+
+
+</mapper>

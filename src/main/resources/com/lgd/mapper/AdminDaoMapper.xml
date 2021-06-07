@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgd.dao.AdminDao">
+
+    <select id="login" parameterType="String"  resultType="Admin">
+        select id, username, password,status,level,salt from yx_admin where username = #{usename}
+    </select>
+
+
+    <select id="queryByLevel"  resultType="Admin">
+        select id, username, password,status,level,salt from yx_admin where level = '2' limit #{begin},#{end}
+    </select>
+    
+    
+    <insert id="insert" parameterType="Admin">
+        insert into yx_admin  values(#{id},#{username},#{password},#{status},#{level},#{salt})
+    </insert>
+
+    <delete id="delete" parameterType="String">
+        delete from yx_admin where id =#{id}
+    </delete>
+
+
+    <update id="update" parameterType="Admin">
+        update yx_admin
+        <set>
+            <if test="username!=null and username!=''">username=#{username},</if>
+            <if test="password!=null and password!=''">password=#{password},</if>
+            <if test="status!=null and status!=''">status=#{status},</if>
+            <if test="level!=null and level!=''">level=#{level},</if>
+            <if test="salt!=null and salt!=''">salt=#{salt}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <select id="count" resultType="Integer">
+        select count(id) from yx_admin
+    </select>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</mapper>

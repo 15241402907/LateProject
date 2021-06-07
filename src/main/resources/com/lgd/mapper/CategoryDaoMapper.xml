@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgd.dao.CategoryDao">
+
+
+   <resultMap id="cate" type="Category">
+       <id column="id" property="id"/>
+       <result column="cate_name" property="cateName"/>
+       <result column="level" property="level"/>
+       <result column="parent_id" property="parentId"/>
+
+       <collection property="cates" javaType="list" ofType="Category">
+           <id column="cid" property="id"/>
+           <result column="ccate_name" property="cateName"/>
+           <result column="clevel" property="level"/>
+           <result column="cparent_id" property="parentId"/>
+       </collection>
+       <collection property="videos" javaType="list" ofType="Video">
+           <id column="vid" property="id"/>
+           <result column="title" property="title"/>
+           <result column="description" property="description"/>
+           <result column="videoPath" property="videoPath"/>
+           <result column="coverPath" property="coverPath"/>
+           <result column="uploadTime" property="uploadTime"/>
+           <result column="cateId" property="cateId"/>
+           <result column="groupId" property="groupId"/>
+           <result column="userId" property="userId"/>
+       </collection>
+   </resultMap>
+
+    <select id="selectOne" parameterType="String" resultMap="cate">
+        select c1.id, c1.cate_name, c1.level, c1.parent_id,
+               c2.id cid,c2.cate_name ccate_name,c2.level clevel,c2.parent_id cparent_id
+        from yx_category c1 left join yx_category c2 on c1.id = c2.parent_id
+        where c1.id = #{id}
+    </select>
+
+    <select id="selectTwo" parameterType="String" resultMap="cate">
+        select c1.id, c1.cate_name, c1.level, c1.parent_id,
+               v.id vid,title,description, video_path videoPath,cover_path coverPath,upload_time uploadTime,cate_id cateId,
+               group_id groupId,user_id userId
+        from yx_category c1 left join yx_video v on cate_id = c1.id
+        where c1.id = #{id}
+    </select>
+
+    <select id="selectById" parameterType="String" resultType="Category">
+        select id, cate_name cateName,level,parent_id parentId
+        from yx_category where id=#{id}
+    </select>
+
+
+
+    <select id="selectOneByPage" resultType="Category">
+        select id, cate_name cateName,level,parent_id parentId
+        from yx_category where level = '1'
+            limit #{begin}, #{end}
+    </select>
+
+
+    <select id="selectTwoByPage" resultType="Category">
+        select id, cate_name cateName,level,parent_id parentId
+        from yx_category where parent_id = #{id}
+            limit #{begin}, #{end}
+    </select>
+
+    <insert id="insert" parameterType="Category">
+        insert into yx_category values(#{id},#{cateName},#{level},#{parentId})
+    </insert>
+
+
+    <insert id="delete" parameterType="String">
+        delete from yx_category where id =#{id}
+    </insert>
+
+
+    <insert id="update" parameterType="Category">
+        update yx_category
+        <set>
+            <if test="cateName!=null and cateName!=''">cate_name=#{cateName},</if>
+            <if test="level!=null and level!=''">level=#{level},</if>
+            <if test="parentId!=null and parentId!=''">parent_id=#{parentId}</if>
+        </set>
+        where id = #{id}
+    </insert>
+
+    <select id="selectOnecount" resultType="Integer">
+        select count(id) from yx_category where level = '1'
+    </select>
+
+    <select id="selectTwocount" resultType="Integer">
+        select count(*) from yx_category where parent_id = #{id}
+    </select>
+</mapper>

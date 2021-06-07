@@ -40,13 +40,9 @@ public class TestTuXing {
             System.out.println(s);
         }
 
-
-        String a = null;
-        a="helloword";
-        System.out.println(a);
-
-        a="Hello Word";
-
+        int aaa = 10;
+        int bbb = 20;
+        System.out.println(aaa+bbb);
 
     }
 

@@ -42,6 +42,8 @@ public class TestTuXing {
 
 
         String a = null;
+        a="helloword";
+        System.out.println(a);
 
 
     }

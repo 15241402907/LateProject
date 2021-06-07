@@ -45,6 +45,8 @@ public class TestTuXing {
         a="helloword";
         System.out.println(a);
 
+        a="Hello Word";
+
 
     }
 

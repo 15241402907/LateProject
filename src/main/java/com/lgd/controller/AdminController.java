@@ -31,7 +31,12 @@ public class AdminController {
         Admin admin = adminService.login(username);
         HashMap<String, Object> map = new HashMap<>();
         String str = (String) session.getAttribute("code");
-        if(code.equals(str)){
+        /*
+         * 忽略大小写 :
+         */
+
+//        if(code.equals(str)){
+        if(code.equalsIgnoreCase(str)){
             if(admin==null){
                 map.put("message","该用户不存在");
                 map.put("status",404);
